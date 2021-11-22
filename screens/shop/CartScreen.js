@@ -4,6 +4,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen'
 import { useSelector ,useDispatch } from 'react-redux'
 import CartItem from '../../components/shop/CartItem'
 import * as cartActions from '../../store/actions/cart'
+import * as orderActions from '../../store/actions/orders'
 
 
 export default function CartScreen() {
@@ -29,7 +30,11 @@ export default function CartScreen() {
         <View style={styles.screen}>
             <View style={styles.summary}>
             <Text style={styles.summaryText}>Total : <Text style={styles.amount}>${cartTotalAmount.toFixed(2)}</Text></Text>
-            <Button title="Order Now" color={Colors.primary} disabled={cartItems.length === 0} />
+            <Button title="Order Now" color={Colors.primary} disabled={cartItems.length === 0} 
+                onPress={
+                    dispatch(orderActions.addOrder(cartItems,cartTotalAmount))
+                }
+            />
             </View>
            <FlatList data={cartItems} keyExtractor={item =>item.productId} renderItem={itemData => <CartItem quantity={itemData.item.quantity} title={itemData.item.productTitle} amount={itemData.item.sum} onRemove={() => {
                dispatch(cartActions.removeFromCart(itemData.item.productId))
