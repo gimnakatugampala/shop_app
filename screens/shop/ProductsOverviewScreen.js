@@ -1,8 +1,10 @@
 import React from 'react'
-import { StyleSheet, Text, View , FlatList } from 'react-native'
+import { StyleSheet, Text, View , FlatList ,Platform } from 'react-native'
 import { useSelector ,useDispatch } from 'react-redux'
 import * as cartActions from '../../store/actions/cart'
 import ProductItem from '../../components/shop/ProductItem'
+import { HeaderButtons,Item } from 'react-navigation-header-buttons'
+import HeaderCustom from '../../components/UI/HeaderButtons'
 
 export default function ProductsOverviewScreen(props) {
 
@@ -18,8 +20,15 @@ export default function ProductsOverviewScreen(props) {
     )
 }
 
-ProductsOverviewScreen.navigationOptions = {
-    headerTitle:'All Products'
+ProductsOverviewScreen.navigationOptions = navData =>  {
+    return{
+    headerTitle:'All Products',
+    headerRight: (<HeaderButtons HeaderButtonComponent={HeaderCustom}>
+        <Item title="Cart" iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'} onPress={() => {
+            navData.navigation.navigate('Cart')
+        }} />
+    </HeaderButtons>)
+    }
 }
 
 
