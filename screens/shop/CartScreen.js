@@ -1,8 +1,9 @@
 import React from 'react'
 import { Button, FlatList, StyleSheet, Text, View } from 'react-native'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
-import { useSelector } from 'react-redux'
+import { useSelector ,useDispatch } from 'react-redux'
 import CartItem from '../../components/shop/CartItem'
+import * as cartActions from '../../store/actions/cart'
 
 
 export default function CartScreen() {
@@ -19,8 +20,10 @@ export default function CartScreen() {
                 sum:state.cart.items[key].sum,
             })
         }
-        return transformedCartItems
+        return transformedCartItems.sort((a,b) => a.productId > b.productId ? 1 : -1)
     })
+
+    const dispatch = useDispatch()
 
     return (
         <View style={styles.screen}>
@@ -28,7 +31,9 @@ export default function CartScreen() {
             <Text style={styles.summaryText}>Total : <Text style={styles.amount}>${cartTotalAmount.toFixed(2)}</Text></Text>
             <Button title="Order Now" color={Colors.primary} disabled={cartItems.length === 0} />
             </View>
-           <FlatList data={cartItems} keyExtractor={item =>item.productId} renderItem={itemData => <CartItem quantity={itemData.item.quantity} title={itemData.item.productTitle} amount={itemData.item.sum} onRemove={() => {}} />} /> 
+           <FlatList data={cartItems} keyExtractor={item =>item.productId} renderItem={itemData => <CartItem quantity={itemData.item.quantity} title={itemData.item.productTitle} amount={itemData.item.sum} onRemove={() => {
+               dispatch(cartActions.removeFromCart(itemData.item.productId))
+           }} />} /> 
         </View>
     )
 }
