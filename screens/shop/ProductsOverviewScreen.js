@@ -23,6 +23,11 @@ export default function ProductsOverviewScreen(props) {
 ProductsOverviewScreen.navigationOptions = navData =>  {
     return{
     headerTitle:'All Products',
+    headerLeft:(<HeaderButtons HeaderButtonComponent={HeaderCustom}>
+        <Item title="Menu" iconName={Platform.OS === 'android' ? 'md-menu' : 'ios-menu'} onPress={() => {
+            navData.navigation.toggleDrawer()
+        }} />
+    </HeaderButtons>),
     headerRight: (<HeaderButtons HeaderButtonComponent={HeaderCustom}>
         <Item title="Cart" iconName={Platform.OS === 'android' ? 'md-cart' : 'ios-cart'} onPress={() => {
             navData.navigation.navigate('Cart')
