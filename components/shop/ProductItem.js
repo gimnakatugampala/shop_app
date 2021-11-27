@@ -12,7 +12,7 @@ export default function ProductItem(props) {
 
     return (
         <View style={styles.product}>
-            <TouchableCmp onPress={props.onViewDetail} useForeground>
+            <TouchableCmp onPress={props.onSelect} useForeground>
             <View style={styles.imageContainer}>
             <Image style={styles.image} source={{uri:props.image}} />
             </View>
