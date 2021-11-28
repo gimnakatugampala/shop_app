@@ -1,13 +1,15 @@
 import React, { useState ,useEffect , useCallback } from 'react'
 import { ScrollView, StyleSheet, Text, TextInput, View ,Platform} from 'react-native'
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useSelector } from 'react-redux';
+import { useSelector ,useDispatch } from 'react-redux';
 
 import HeaderButton from '../../components/UI/HeaderButtons';
-
+import * as productsActions from '../../store/actions/products'
 
 
 export default function EditProductScreen(props) {
+
+    const dispatch = useDispatch()
 
     const prodId = props.navigation.getParam('productId')
     const editedProduct = useSelector(state => state.products.userProducts.find(prod => prod.id === prodId))
@@ -18,8 +20,14 @@ export default function EditProductScreen(props) {
     const [description, setdescription] = useState(editedProduct ? editedProduct.description : '')
 
    const submitHandler = useCallback(() => {
-       console.log('submitting')
-   },[])
+        
+    if(editedProduct){
+        dispatch(productsActions.UpdateProduct(prodId,title,description,imageUrl))
+    }else{
+        dispatch(productsActions.createProduct(title,description,imageUrl,+price))
+    }
+
+   },[dispatch,prodId,title,description,imageUrl,price])
 
    useEffect(() => {
        props.navigation.setParams({submit:submitHandler})
