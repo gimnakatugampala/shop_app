@@ -2,6 +2,8 @@ import React from 'react'
 import { StyleSheet, Text, View ,Image, Button ,TouchableOpacity ,TouchableNativeFeedback , Platform } from 'react-native'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 
+import Card from '../UI/Card';
+
 export default function ProductItem(props) {
 
     let TouchableCmp = TouchableOpacity;
@@ -11,7 +13,7 @@ export default function ProductItem(props) {
     }
 
     return (
-        <View style={styles.product}>
+        <Card style={styles.product}>
             <TouchableCmp onPress={props.onSelect} useForeground>
             <View style={styles.imageContainer}>
             <Image style={styles.image} source={{uri:props.image}} />
@@ -25,19 +27,13 @@ export default function ProductItem(props) {
                 <Button color={Colors.primary} title="To Cart" onPress={props.onAddToCart} />
             </View>
         </TouchableCmp>
-        </View>
+        </Card>
     )
 }
 
 const styles = StyleSheet.create({
     product:{
-        shadowColor:'black',
-        shadowOpacity:0.26,
-        shadowOffset:{width:0,height:2},
-        shadowRadius:8,
-        elevation:5,
-        borderRadius:10,
-        backgroundColor:'white',
+      
         height:300,
         margin:20,
         overflow:'hidden'

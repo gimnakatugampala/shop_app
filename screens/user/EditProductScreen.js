@@ -42,7 +42,7 @@ export default function EditProductScreen(props) {
         <View>
         <View style={styles.formControl}>
             <Text style={styles.label}>Title</Text>
-            <TextInput style={styles.input} value={title} onChangeText={text => settitle(text)} />
+            <TextInput style={styles.input} value={title} onChangeText={text => settitle(text)} keyboardType='default' autoCapitalize='sentences' autoCorrect returnKeyType='next' onEndEditing={() => console.log('onENdEDiting')} onSubmitEditing={() => console.log('onSubmit Editing')} />
         </View>
 
         <View style={styles.formControl}>
@@ -52,7 +52,7 @@ export default function EditProductScreen(props) {
 
        {editedProduct ? null : (<View style={styles.formControl}>
             <Text style={styles.label}>Price</Text>
-            <TextInput style={styles.input} value={price} onChangeText={text => setprice(text)} />
+            <TextInput style={styles.input} value={price} onChangeText={text => setprice(text)} keyboardType='decimal-pad' />
         </View>)}
 
         <View style={styles.formControl}>
